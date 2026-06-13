@@ -453,7 +453,6 @@ async function processRecording(
         status: 'ready',
         fileUrl: storageResult.url,
         fileSizeBytes: outputSize,
-        durationSeconds: durationSeconds || null,
         processedAt: new Date(),
       },
     });
@@ -462,7 +461,6 @@ async function processRecording(
       where: { id: sessionId },
       data: {
         recordingStatus: 'ready',
-        recordingUrl: storageResult.url,
       },
     });
 
@@ -539,7 +537,6 @@ sessionsRouter.post(
           status: 'processing',
           fileUrl: null,
           fileSizeBytes: null,
-          durationSeconds: null,
           processedAt: null,
         },
       });
