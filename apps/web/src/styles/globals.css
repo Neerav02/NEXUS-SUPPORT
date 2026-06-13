@@ -1,0 +1,231 @@
+/* ── NEXUS SUPPORT — Global Design System ──
+ * Color Palette: All custom — no named CSS colors, no Tailwind defaults
+ * Typography: Syne (display), DM Sans (body), JetBrains Mono (code)
+ * Spacing: 4px base unit
+ */
+
+/* ── Google Fonts Import ── */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ── CSS Custom Properties ── */
+:root {
+  /* Backgrounds */
+  --bg-primary: #0d0d14;
+  --bg-secondary: #13131f;
+  --bg-card: #1a1a2e;
+  --bg-card-hover: #1f1f35;
+
+  /* Accents */
+  --accent-primary: #e8622a;
+  --accent-secondary: #c94b8a;
+  --accent-tertiary: #f0a500;
+
+  /* Text */
+  --text-primary: #f2ede8;
+  --text-secondary: #a89f96;
+  --text-muted: #6b6360;
+
+  /* Gradients */
+  --gradient-ember-rose: linear-gradient(135deg, #e8622a, #c94b8a);
+  --gradient-gold-ember: linear-gradient(135deg, #f0a500, #e8622a);
+  --gradient-ember-rose-hover: linear-gradient(135deg, #f07040, #d45a98);
+
+  /* Borders */
+  --border-default: #2a2a3e;
+  --border-subtle: #1f1f30;
+
+  /* Status */
+  --danger: #d94040;
+  --success: #5aad78;
+  --warning: #c4952a;
+
+  /* Shadows (accent-aligned glow) */
+  --shadow-focus: 0 0 0 2px rgba(232, 98, 42, 0.4);
+  --shadow-card-hover: 0 8px 32px rgba(201, 75, 138, 0.15);
+  --shadow-error: 0 0 0 2px rgba(217, 64, 64, 0.4);
+  --shadow-success: 0 0 0 2px rgba(90, 173, 120, 0.4);
+
+  /* Spacing (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Border Radius (asymmetric badge-clipped) */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-card: 12px 12px 4px 4px;
+  --radius-modal: 16px;
+  --radius-video: 12px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Font Sizes */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.25rem;     /* 20px */
+  --text-2xl: 1.5rem;     /* 24px */
+  --text-3xl: 1.875rem;   /* 30px */
+  --text-4xl: 2.25rem;    /* 36px */
+  --text-5xl: 3rem;       /* 48px */
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 400ms ease;
+
+  /* Z-Index Scale */
+  --z-dropdown: 100;
+  --z-modal-backdrop: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+  --z-self-view: 50;
+  --z-control-bar: 60;
+}
+
+/* ── CSS Reset ── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+code, pre, kbd, samp, .mono {
+  font-family: var(--font-mono);
+}
+
+a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--accent-tertiary);
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  color: inherit;
+}
+
+input, textarea, select {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  outline: none;
+  width: 100%;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--accent-primary);
+  box-shadow: var(--shadow-focus);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-muted);
+}
+
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* ── Scrollbar Styling ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ── Selection Styling ── */
+::selection {
+  background: rgba(232, 98, 42, 0.3);
+  color: var(--text-primary);
+}
+
+/* ── Utility Classes ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Toast Overrides (react-hot-toast) ── */
+[data-sonner-toaster] {
+  font-family: var(--font-body) !important;
+}

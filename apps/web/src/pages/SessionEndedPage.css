@@ -1,0 +1,124 @@
+.ended-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow: hidden;
+  padding: var(--space-4);
+  box-sizing: border-box;
+}
+
+/* Ambient Background Orbs */
+.ended-page__ambient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ended-page__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.15;
+}
+
+.ended-page__orb--1 {
+  width: 400px;
+  height: 400px;
+  background: var(--accent-primary);
+  top: -100px;
+  right: -50px;
+}
+
+.ended-page__orb--2 {
+  width: 500px;
+  height: 500px;
+  background: var(--accent-secondary);
+  bottom: -150px;
+  left: -100px;
+}
+
+/* Ended Page Card */
+.ended-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 480px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2xl);
+  padding: 40px;
+  box-shadow: var(--shadow-xl);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.ended-card__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.ended-success-badge {
+  color: #5aad78;
+  background: rgba(90, 173, 120, 0.1);
+  padding: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(90, 173, 120, 0.2);
+  margin-top: 8px;
+}
+
+.ended-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin: 0;
+}
+
+.ended-card__subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.ended-card__divider {
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
+}
+
+.ended-card__body {
+  margin-bottom: 32px;
+}
+
+.ended-info-text {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  text-align: left;
+}
+
+.ended-card__actions {
+  display: flex;
+  justify-content: center;
+}

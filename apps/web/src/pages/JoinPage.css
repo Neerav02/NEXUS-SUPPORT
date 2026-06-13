@@ -1,0 +1,118 @@
+/* ── Customer Join Page Styles ── */
+
+.join-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-4);
+}
+
+.join-page__ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.join-page__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.12;
+}
+
+.join-page__orb--1 {
+  width: 450px;
+  height: 450px;
+  background: var(--accent-secondary);
+  top: -100px;
+  left: -80px;
+}
+
+.join-page__orb--2 {
+  width: 350px;
+  height: 350px;
+  background: var(--accent-tertiary);
+  bottom: -80px;
+  right: -80px;
+}
+
+.join-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-modal);
+  padding: var(--space-10);
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+}
+
+.join-card__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+
+.join-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  background: var(--gradient-ember-rose);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.join-card__subtitle {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.join-card__error {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(217, 64, 64, 0.1);
+  border: 1px solid rgba(217, 64, 64, 0.25);
+  border-radius: var(--radius-md);
+  color: var(--danger);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-4);
+}
+
+.join-card__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.join-card__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.join-card__label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.join-card__footer {
+  margin-top: var(--space-6);
+  text-align: center;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  line-height: 1.5;
+}

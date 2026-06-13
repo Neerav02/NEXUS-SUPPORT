@@ -1,0 +1,68 @@
+# ── NEXUS SUPPORT — Docker Compose ──
+# Backend API (with mediasoup + FFmpeg) + PostgreSQL + Redis
+
+services:
+  # ── PostgreSQL Database ──
+  postgres:
+    image: postgres:16-alpine
+    container_name: nexus-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: nexus
+      POSTGRES_PASSWORD: nexus_dev_password
+      POSTGRES_DB: nexus_support
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nexus -d nexus_support"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ── Redis Cache ──
+  redis:
+    image: redis:7-alpine
+    container_name: nexus-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ── Backend API (Node.js + mediasoup + FFmpeg) ──
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+      target: development
+    container_name: nexus-api
+    restart: unless-stopped
+    env_file:
+      - ./apps/api/.env
+    environment:
+      - DATABASE_URL=postgresql://nexus:nexus_dev_password@postgres:5432/nexus_support
+      - REDIS_URL=redis://redis:6379
+    ports:
+      - "8080:8080"
+      - "40000-40100:40000-40100/udp"  # mediasoup RTP ports (subset for dev)
+    volumes:
+      - ./apps/api/src:/app/src        # Hot reload source files
+      - ./apps/api/prisma:/app/prisma  # Prisma schema sync
+      - api_node_modules:/app/node_modules  # Persist node_modules in Docker volume
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  redis_data:
+  api_node_modules:

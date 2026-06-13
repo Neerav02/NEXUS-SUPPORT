@@ -1,0 +1,110 @@
+/* ── Button Component Styles ── */
+
+.nx-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.nx-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Sizes ── */
+.nx-btn--sm {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  border-radius: 6px;
+  min-height: 32px;
+}
+
+.nx-btn--md {
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-base);
+  border-radius: var(--radius-md);
+  min-height: 42px;
+}
+
+.nx-btn--lg {
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--text-lg);
+  border-radius: var(--radius-md);
+  min-height: 50px;
+}
+
+/* ── Variants ── */
+.nx-btn--primary {
+  background: var(--gradient-ember-rose);
+  color: var(--text-primary);
+  box-shadow: 0 2px 12px rgba(232, 98, 42, 0.25);
+}
+
+.nx-btn--primary:hover:not(:disabled) {
+  background: var(--gradient-ember-rose-hover);
+  box-shadow: 0 4px 20px rgba(232, 98, 42, 0.35);
+}
+
+.nx-btn--secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+}
+
+.nx-btn--secondary:hover:not(:disabled) {
+  border-color: var(--accent-primary);
+  background: rgba(232, 98, 42, 0.08);
+}
+
+.nx-btn--ghost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.nx-btn--ghost:hover:not(:disabled) {
+  color: var(--text-primary);
+  background: rgba(242, 237, 232, 0.05);
+}
+
+.nx-btn--danger {
+  background: var(--danger);
+  color: var(--text-primary);
+  box-shadow: 0 2px 12px rgba(217, 64, 64, 0.25);
+}
+
+.nx-btn--danger:hover:not(:disabled) {
+  background: #e04848;
+  box-shadow: 0 4px 20px rgba(217, 64, 64, 0.35);
+}
+
+/* ── Full Width ── */
+.nx-btn--full {
+  width: 100%;
+}
+
+/* ── Loading Spinner ── */
+.nx-btn__spinner {
+  display: flex;
+  align-items: center;
+}
+
+.nx-btn__spinner svg {
+  animation: spin 0.8s linear infinite;
+}
+
+.nx-btn__content--loading {
+  opacity: 0.7;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,204 @@
+.control-bar-wrapper {
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+}
+
+.control-bar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  background: rgba(26, 26, 46, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  padding: 12px 24px;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 800px;
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.control-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.control-center {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.control-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  background: rgba(13, 13, 20, 0.5);
+  padding: 6px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.live-icon-pulse {
+  color: #5aad78;
+  animation: live-pulse 2s infinite ease-in-out;
+}
+
+.control-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.control-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.control-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Active Control Buttons */
+.btn-active {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-active:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Danger/Muted Button States */
+.btn-danger {
+  background: rgba(219, 68, 85, 0.15);
+  border-color: rgba(219, 68, 85, 0.3);
+  color: #db4455;
+}
+
+.btn-danger:hover {
+  background: rgba(219, 68, 85, 0.25);
+  border-color: rgba(219, 68, 85, 0.5);
+}
+
+/* Screen Share Buttons */
+.btn-active-screenshare {
+  background: rgba(232, 98, 42, 0.15);
+  border-color: rgba(232, 98, 42, 0.4);
+  color: var(--accent-primary);
+}
+
+.btn-active-screenshare:hover {
+  background: rgba(232, 98, 42, 0.25);
+}
+
+.btn-inactive-screenshare {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.btn-inactive-screenshare:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Leave Call Action Button */
+.btn-leave {
+  background: linear-gradient(135deg, #e8622a 0%, #c94b8a 100%);
+  width: auto;
+  padding: 0 20px;
+  border-radius: 24px;
+  border: none;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  box-shadow: 0 4px 15px rgba(232, 98, 42, 0.25);
+}
+
+.btn-leave:hover {
+  box-shadow: 0 6px 20px rgba(232, 98, 42, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-label-desktop {
+  margin-left: 4px;
+}
+
+@media (max-width: 600px) {
+  .control-bar {
+    grid-template-columns: auto 1fr;
+    padding: 10px 16px;
+  }
+
+  .control-left {
+    display: none;
+  }
+
+  .btn-label-desktop {
+    display: none;
+  }
+
+  .btn-leave {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    padding: 0;
+  }
+}
+
+@keyframes live-pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.rec-status-tag {
+  color: #db4455;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-left: 6px;
+  font-size: 10px;
+  animation: live-pulse 1s infinite ease-in-out;
+  background: rgba(219, 68, 85, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+@keyframes rec-pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(219, 68, 85, 0.4); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(219, 68, 85, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(219, 68, 85, 0); }
+}
+
+.btn-pulse {
+  animation: rec-pulse 2s infinite;
+  background: rgba(219, 68, 85, 0.2) !important;
+  border-color: rgba(219, 68, 85, 0.4) !important;
+  color: #db4455 !important;
+}
+
+.btn-pulse:hover {
+  background: rgba(219, 68, 85, 0.3) !important;
+  border-color: rgba(219, 68, 85, 0.6) !important;
+}

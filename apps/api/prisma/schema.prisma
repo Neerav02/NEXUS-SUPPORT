@@ -1,0 +1,163 @@
+// ── NEXUS SUPPORT — Prisma Schema ──
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ── Enums ──
+
+enum UserRole {
+  agent
+  admin
+}
+
+enum SessionStatus {
+  waiting
+  active
+  ended
+}
+
+enum RecordingStatus {
+  none
+  recording
+  processing
+  ready
+  failed
+}
+
+enum ParticipantRole {
+  agent
+  customer
+}
+
+enum MessageType {
+  text
+  file
+}
+
+enum EventType {
+  created
+  joined
+  left
+  recording_started
+  recording_stopped
+  ended
+  reconnected
+  file_shared
+}
+
+// ── Models ──
+
+/// Agent/Admin user accounts. Customers do NOT have user accounts.
+model User {
+  id           String    @id @default(uuid()) @db.Uuid
+  email        String    @unique
+  passwordHash String    @map("password_hash")
+  role         UserRole  @default(agent)
+  displayName  String    @map("display_name")
+  avatarUrl    String?   @map("avatar_url")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  sessions     Session[]
+
+  @@map("users")
+}
+
+/// Support sessions — each has a unique invite token for customer access.
+model Session {
+  id              String          @id @default(uuid()) @db.Uuid
+  title           String
+  agentId         String          @map("agent_id") @db.Uuid
+  status          SessionStatus   @default(waiting)
+  inviteToken     String          @unique @map("invite_token")
+  startedAt       DateTime?       @map("started_at")
+  endedAt         DateTime?       @map("ended_at")
+  recordingStatus RecordingStatus @default(none) @map("recording_status")
+  createdAt       DateTime        @default(now()) @map("created_at")
+
+  agent           User                 @relation(fields: [agentId], references: [id])
+  participants    SessionParticipant[]
+  messages        ChatMessage[]
+  events          SessionEvent[]
+  recording       Recording?
+
+  @@index([agentId])
+  @@index([inviteToken])
+  @@index([status])
+  @@map("sessions")
+}
+
+/// Tracks who participated in each session and for how long.
+model SessionParticipant {
+  id                   String          @id @default(uuid()) @db.Uuid
+  sessionId            String          @map("session_id") @db.Uuid
+  identity             String
+  role                 ParticipantRole
+  joinedAt             DateTime        @default(now()) @map("joined_at")
+  leftAt               DateTime?       @map("left_at")
+  totalDurationSeconds Int?            @map("total_duration_seconds")
+
+  session              Session         @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@map("session_participants")
+}
+
+/// In-call chat messages (text or file attachments).
+model ChatMessage {
+  id             String          @id @default(uuid()) @db.Uuid
+  sessionId      String          @map("session_id") @db.Uuid
+  senderIdentity String          @map("sender_identity")
+  senderRole     ParticipantRole @map("sender_role")
+  content        String?
+  messageType    MessageType     @default(text) @map("message_type")
+  fileUrl        String?         @map("file_url")
+  fileName       String?         @map("file_name")
+  fileSize       Int?            @map("file_size")
+  createdAt      DateTime        @default(now()) @map("created_at")
+
+  session        Session         @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@index([createdAt])
+  @@map("chat_messages")
+}
+
+/// Audit log of everything that happens in a session.
+model SessionEvent {
+  id            String          @id @default(uuid()) @db.Uuid
+  sessionId     String          @map("session_id") @db.Uuid
+  eventType     EventType       @map("event_type")
+  actorIdentity String          @map("actor_identity")
+  actorRole     ParticipantRole @map("actor_role")
+  metadata      Json?           @db.JsonB
+  occurredAt    DateTime        @default(now()) @map("occurred_at")
+
+  session       Session         @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@index([occurredAt])
+  @@map("session_events")
+}
+
+/// Processed call recordings stored in object storage.
+model Recording {
+  id            String          @id @default(uuid()) @db.Uuid
+  sessionId     String          @unique @map("session_id") @db.Uuid
+  status        RecordingStatus @default(none)
+  fileUrl       String?         @map("file_url")
+  fileSizeBytes Int?            @map("file_size_bytes")
+  processedAt   DateTime?       @map("processed_at")
+  createdAt     DateTime        @default(now()) @map("created_at")
+
+  session       Session         @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@map("recordings")
+}
