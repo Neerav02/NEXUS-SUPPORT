@@ -51,7 +51,7 @@ Render supports WebSockets and custom `Dockerfile` deployments out of the box.
 3. Connect your GitHub repository `Neerav02/NEXUS-SUPPORT`.
 4. In the settings, configure:
    - **Environment**: `Docker`
-   - **Docker Path**: `apps/api/Dockerfile`
+   - **Docker Path**: `Dockerfile` *(Relative to the Root Directory)*
    - **Root Directory**: `apps/api`
    - **Instance Type**: `Free`
 5. Click **Advanced** and add the following **Environment Variables**:
