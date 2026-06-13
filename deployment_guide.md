@@ -36,7 +36,7 @@ Since Railway's free trial is over, we will use **Render** or **Koyeb** to host 
 Since we cannot run Redis in a container for free, we use Upstash:
 
 1. **Create Upstash Account**: Go to [upstash.com](https://upstash.com) and create a free Redis database.
-2. **Retrieve URL**: Copy the **Redis Connect URL** (e.g. `redis://default:password@name.upstash.io:6379`).
+2. **Retrieve URL**: Copy the **Redis Connect URL** (e.g. `rediss://default:password@name.upstash.io:6379`).
 
 ---
 
