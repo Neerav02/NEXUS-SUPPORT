@@ -8,7 +8,6 @@ import {
   Monitor,
   PhoneOff,
   Radio,
-  CircleDot,
 } from 'lucide-react';
 import './ControlBar.css';
 

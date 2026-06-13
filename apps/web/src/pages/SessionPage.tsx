@@ -44,6 +44,18 @@ const formatTime = (secs: number): string => {
   return `${m}:${s}`;
 };
 
+const mapRecordingStatus = (status: RecordingStatus): 'RECORDING' | 'PROCESSING' | 'READY' | 'NONE' => {
+  switch (status) {
+    case 'recording': return 'RECORDING';
+    case 'processing': return 'PROCESSING';
+    case 'ready': return 'READY';
+    case 'none':
+    case 'failed':
+    default:
+      return 'NONE';
+  }
+};
+
 /**
  * Decode the JWT and extract the participant identity string.
  * For agents: returns userId.
@@ -432,7 +444,7 @@ export const SessionPage: React.FC = () => {
 
           {/* Recording floating badge — sits above video */}
           <RecordingIndicator
-            status={recordingStatus}
+            status={mapRecordingStatus(recordingStatus)}
             downloadUrl={recordingDownloadUrl}
           />
 
@@ -463,7 +475,7 @@ export const SessionPage: React.FC = () => {
             <ControlBar
               onLeave={handleLeaveCall}
               isAgent={isAgent}
-              recordingStatus={recordingStatus}
+              recordingStatus={mapRecordingStatus(recordingStatus)}
               onToggleRecording={handleToggleRecording}
             />
           </div>
