@@ -322,14 +322,6 @@ export const SessionPage: React.FC = () => {
     });
   };
 
-  const handleToggleRecording = () => {
-    if (recordingStatus === 'recording') {
-      handleStopRecording();
-    } else if (recordingStatus === 'none' || recordingStatus === 'failed') {
-      handleStartRecording();
-    }
-  };
-
   // ── Chat Controls ─────────────────────────────────────────────────────
 
   const handleSendChat = (e: React.FormEvent) => {
@@ -476,7 +468,8 @@ export const SessionPage: React.FC = () => {
               onLeave={handleLeaveCall}
               isAgent={isAgent}
               recordingStatus={mapRecordingStatus(recordingStatus)}
-              onToggleRecording={handleToggleRecording}
+              onStartRecording={handleStartRecording}
+              onStopRecording={handleStopRecording}
             />
           </div>
         </main>
